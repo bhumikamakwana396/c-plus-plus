@@ -6,6 +6,7 @@ class Customer
 	public:
 	int ID;
 	char name[30];
+	double balance;
 
 	void getData()
 	{
@@ -21,55 +22,58 @@ class Customer
 	}
 };
 
-class Account:public Customer
+class Account: virtual public Customer
 {
 	public:
-	double balance;
 
 	void getBalance()
 	{
 		cout<<"\nEnter Balance: ";
 		cin>>balance;
 	}
+
 };
 
-class Transaction:public Customer
+class Transaction: virtual public Customer
 {
 	public:
 	int amount;
-	double d,w;
 
 	void deposit()
 	{
-		cout<<"\nEnter Ammount: ";
+
+		cout<<"\nEnter Amount: ";
 		cin>>amount;
+		cout<<"\n";
 		balance+=amount;
-		cout<<"\nDeposit Amount success";
+		cout<<"\nDeposit Successfully\n";
 	}
 
 	void withdraw()
 	{
 		cout<<"\nEnter Amount: ";
 		cin>>amount;
+
 		if(amount>balance)
 		{
-			cout<<"\nInsufficieant Balance";
+			cout<<"\n\nInsufficieant Balance\n";
 		}
 		else
 		{
 			balance-=amount;
 		}
-		cout<<"\nWithdraw amount success";
+		cout<<"\n\Withdraw Successfully\n";
 	}
 };
 
-class Report:public Account,public Transaction
+class Report: public Account, public Transaction
 {
 	public:
 
 	void show()
 	{
-		cout<<"\nFinal Amount: "<<d+w;
+		disData();
+		cout<<"\nFinal Amount: "<<Transaction::balance;
 	}
 };
 
@@ -78,11 +82,14 @@ void main()
 	clrscr();
 	Report r1;
 
-	r1.Account::getData();
+	r1.getData();
 	r1.getBalance();
 	r1.deposit();
 	r1.withdraw();
-	r1.Account::disData();
+
+	cout<<"\n----Transaction Detail----\n";
+
 	r1.show();
 	getch();
+
 }
